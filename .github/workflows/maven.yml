@@ -42,7 +42,7 @@ jobs:
          tags: kunalprajapat854/Spring_Boot_CI_CD:${{ github.sha }}
 
     - name : Deploy Into EC2-Instance
-      uses: applyboy/ssh-action@master
+      uses: appleboy/ssh-action@v0.1.7
       env:
         host: ${{secrets.EC2_HOST}}
         username: ${{secrets.EC2_HOST_USERNAME}}
