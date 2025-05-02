@@ -39,7 +39,7 @@ jobs:
       with:
          context: .
          push : true
-         tags: kunalprajapat854/Spring_Boot_CI_CD:${{ github.sha }}
+         tags: kunalprajapat854/spring_boot_ci_cd:${{ github.sha }}
 
     - name : Deploy Into EC2-Instance
       uses: appleboy/ssh-action@v0.1.7
@@ -50,7 +50,7 @@ jobs:
         script: |
           docker stop Spring_Boot_CI_CD || true
           docker rm Spring_Boot_CI_CD   || true
-          docker pull ${{secrets.DOCKER_USER_NAME}} /Spring_Boot_CI_CD:${{github.sha}}
+          docker pull ${{secrets.DOCKER_USER_NAME}} /spring_boot_ci_cd:${{github.sha}}
           docker run -d --name Spring_Boot_CI_CD -p 8080:9090 ${{secrets.DOCKER_USER_NAME}}         
            
            script :  |
@@ -63,8 +63,8 @@ jobs:
            sudo usermod -a -G docker $USER
            sudo chmod 777 /var/run/docker.sock
 
-           docker stop Spring_Boot_CI_CD || true
-           docker rm Spring_Boot_CI_CD || true
+           docker stop spring_boot_ci_cd || true
+           docker rm spring_boot_ci_cd || true
 
-             docker pull ${{ secrets.DOCKER_USER_NAME }}/Spring_Boot_CI_CD:${{ github.sha }}
-            docker run -d --name Spring_Boot_CI_CD -p 8080:9090 ${{ secrets.DOCKER_USER_NAME }}/Spring_Boot_CI_CD:${{ github.sha }}
+             docker pull ${{ secrets.DOCKER_USER_NAME }}/spring_boot_ci_cd:${{ github.sha }}
+            docker run -d --name Spring_Boot_CI_CD -p 8080:9090 ${{ secrets.DOCKER_USER_NAME }}/spring_boot_ci_cd:${{ github.sha }}
