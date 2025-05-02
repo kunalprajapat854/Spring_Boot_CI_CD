@@ -53,20 +53,18 @@ jobs:
           docker pull ${{secrets.DOCKER_USER_NAME}} /Spring_Boot_CI_CD:${{github.sha}}
           docker run -d --name Spring_Boot_CI_CD -p 8080:9090 ${{secrets.DOCKER_USER_NAME}}         
            
-    - run : |
+           script :  |
+    
+           if ! command -v docker &> /dev/null; then
+           sudo apt-get update
+           sudo apt-get install -y docker.io
+           fi
 
-          # Install Docker if not already installed
-          if ! command -v docker &> /dev/null; then
-            sudo apt-get update
-            sudo apt-get install -y docker.io
-          fi
-          
-          # Ensure user has Docker permissions
-          sudo usermod -a -G docker $USER
-          sudo chmod 777 /var/run/docker.sock
+           sudo usermod -a -G docker $USER
+           sudo chmod 777 /var/run/docker.sock
 
-          ENDSSH
+           docker stop Spring_Boot_CI_CD || true
+           docker rm Spring_Boot_CI_CD || true
 
-       
-
-   
+             docker pull ${{ secrets.DOCKER_USER_NAME }}/Spring_Boot_CI_CD:${{ github.sha }}
+            docker run -d --name Spring_Boot_CI_CD -p 8080:9090 ${{ secrets.DOCKER_USER_NAME }}/Spring_Boot_CI_CD:${{ github.sha }}
