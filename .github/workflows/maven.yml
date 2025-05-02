@@ -39,7 +39,7 @@ jobs:
       with:
          context: .
          push : true
-         tags: kunalprajapat854/Spring_Boot_CI_CD:${{ github:sha }}
+         tags: kunalprajapat854/Spring_Boot_CI_CD:${{ github.sha }}
 
     - name : Deploy Into EC2-Instance
       uses: applyboy/ssh-action@master
