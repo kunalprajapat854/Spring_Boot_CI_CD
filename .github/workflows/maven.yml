@@ -43,7 +43,7 @@ jobs:
 
     - name : Deploy Into EC2-Instance
       uses: appleboy/ssh-action@master
-      env:
+      with:
         host: ${{secrets.EC2_HOST}}
         username: ${{secrets.EC2_HOST_USERNAME}}
         key: ${{secrets.EC2_HOST_KEY}}
